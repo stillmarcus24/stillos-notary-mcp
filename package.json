@@ -1,0 +1,19 @@
+{
+  "name": "stillos-notary-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.stillmarcus24/stillos-notary-mcp",
+  "description": "Verification infrastructure for the agentic economy: submit a claim, get an Ed25519-signed verdict resolved against real external ground truth (GitHub, on-chain, HTTP, JSON, Kalshi). Free tier, no account. Fail-closed.",
+  "bin": {
+    "stillos-notary-mcp": "bin.cjs"
+  },
+  "main": "index.cjs",
+  "keywords": [
+    "notary", "verification", "trust", "receipt", "signed", "ed25519",
+    "mcp", "agent", "agentic-economy", "x402", "resolver", "attestation"
+  ],
+  "author": "StillOS / NolaWealth",
+  "license": "MIT",
+  "homepage": "https://nolawealthfinancial.com/notary",
+  "engines": { "node": ">=18" },
+  "files": ["index.cjs", "mcp.cjs", "bin.cjs", "README.md", "LICENSE"]
+}
