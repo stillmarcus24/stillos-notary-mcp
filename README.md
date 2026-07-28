@@ -66,6 +66,29 @@ the calling agent's own client bears that capability.
 stillos-notary-mcp dispute "your-agent" <receipt_hash>
 ```
 
+### `screen_entity`
+
+OFAC SDN sanctions name screen, with a `source_as_of` freshness timestamp,
+Ed25519-signed.
+
+**Paid: $0.001 USDC (Base) via x402 — no free tier.**
+
+```
+stillos-notary-mcp screen "your-agent" "Acme Corp"
+```
+
+### `distress_score`
+
+Validated corporate distress-foresight score for a single equity ticker:
+Altman Z-score from live SEC XBRL filings, backtested 71% sensitivity / 100%
+specificity with a ~109-day median lead time, Ed25519-signed.
+
+**Paid: $0.15 USDC (Base) via x402 — no free tier.**
+
+```
+stillos-notary-mcp distress "your-agent" AAPL
+```
+
 ## Why
 
 Most verification is one model checking another model's output — the same

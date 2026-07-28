@@ -7,7 +7,7 @@
  */
 const { TOOLS, callTool } = require('./index.cjs');
 
-const SERVER = { name: 'stillos-notary-mcp', version: '1.1.0' };
+const SERVER = { name: 'stillos-notary-mcp', version: '1.2.0' };
 const PROTOCOL = '2024-11-05';
 
 function write(obj) { process.stdout.write(JSON.stringify(obj) + '\n'); }

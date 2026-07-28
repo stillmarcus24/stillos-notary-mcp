@@ -6,6 +6,8 @@
  *   stillos-notary-mcp verify <hash>            -> verify a receipt hash
  *   stillos-notary-mcp claim <agent> <claim> <resolver-json>  -> submit a claim-verdict
  *   stillos-notary-mcp dispute <agent> <receipt-hash>         -> file a bonded dispute ($1.00 x402, no free tier)
+ *   stillos-notary-mcp screen <agent> <entity>                -> OFAC SDN name screen ($0.001 x402, no free tier)
+ *   stillos-notary-mcp distress <agent> <ticker>              -> distress-foresight score ($0.15 x402, no free tier)
  */
 const { callTool } = require('./index.cjs');
 
@@ -25,12 +27,24 @@ if (args[0] === 'verify' && args[1]) {
     print(out);
     if (out.payment_required) console.log('\nPaid endpoint ($1.00 USDC, Base, x402) — attach payment and retry. No free tier.');
   }).catch(e => { console.error(e.message); process.exit(1); });
+} else if (args[0] === 'screen' && args[1] && args[2]) {
+  callTool('screen_entity', { agent: args[1], entity: args[2] }).then((out) => {
+    print(out);
+    if (out.payment_required) console.log('\nPaid endpoint ($0.001 USDC, Base, x402) — attach payment and retry. No free tier.');
+  }).catch(e => { console.error(e.message); process.exit(1); });
+} else if (args[0] === 'distress' && args[1] && args[2]) {
+  callTool('distress_score', { agent: args[1], ticker: args[2] }).then((out) => {
+    print(out);
+    if (out.payment_required) console.log('\nPaid endpoint ($0.15 USDC, Base, x402) — attach payment and retry. No free tier.');
+  }).catch(e => { console.error(e.message); process.exit(1); });
 } else {
   console.log('stillos-notary-mcp — verification infrastructure for the agentic economy.\n');
   console.log('  stillos-notary-mcp mcp                                        run as MCP server');
   console.log('  stillos-notary-mcp verify <hash>                              verify a receipt');
   console.log('  stillos-notary-mcp claim <agent> <claim> <resolver-json>      submit a claim-verdict');
-  console.log('  stillos-notary-mcp dispute <agent> <receipt-hash>             file a bonded dispute ($1.00 x402, no free tier)\n');
+  console.log('  stillos-notary-mcp dispute <agent> <receipt-hash>             file a bonded dispute ($1.00 x402, no free tier)');
+  console.log('  stillos-notary-mcp screen <agent> <entity>                    OFAC SDN name screen ($0.001 x402, no free tier)');
+  console.log('  stillos-notary-mcp distress <agent> <ticker>                  distress-foresight score ($0.15 x402, no free tier)\n');
   console.log('example resolver: {"type":"http_status","url":"https://example.com","expect_code":200}');
   process.exit(2);
 }

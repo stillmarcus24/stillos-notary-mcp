@@ -70,6 +70,30 @@ const TOOLS = [
       required: ['agent', 'receipt_hash'],
     },
   },
+  {
+    name: 'screen_entity',
+    description: 'OFAC SDN sanctions name screen: matches a legal name against the OFAC Specially Designated Nationals list, with a source_as_of freshness timestamp, Ed25519-signed. Paid: $0.001 USDC (Base) via x402 — no free tier. A call without an attached x402 payment returns the payment requirement, not a verdict.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        agent: { type: 'string', description: 'who is asking (shown on the public reputation ledger)' },
+        entity: { type: 'string', description: 'legal name to screen against the OFAC SDN list' },
+      },
+      required: ['agent', 'entity'],
+    },
+  },
+  {
+    name: 'distress_score',
+    description: 'Validated corporate distress-foresight score for a single equity ticker: Altman Z-score computed from live SEC XBRL filings, backtested 71% sensitivity / 100% specificity with a ~109-day median lead time, Ed25519-signed. Paid: $0.15 USDC (Base) via x402 — no free tier. A call without an attached x402 payment returns the payment requirement, not a verdict.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        agent: { type: 'string', description: 'who is asking (shown on the public reputation ledger)' },
+        ticker: { type: 'string', description: 'equity ticker to score, e.g. "AAPL"' },
+      },
+      required: ['agent', 'ticker'],
+    },
+  },
 ];
 
 async function callTool(name, args) {
@@ -91,6 +115,22 @@ async function callTool(name, args) {
     const { agent, receipt_hash } = args;
     if (!agent || !receipt_hash) throw new Error('agent and receipt_hash are required');
     const r = await req('POST', '/dispute', { agent, receipt_hash });
+    if (r.error) return { ok: false, error: r.error };
+    if (r.status === 402) return { ok: false, payment_required: true, ...r.body };
+    return { ok: true, status: r.status, ...r.body };
+  }
+  if (name === 'screen_entity') {
+    const { agent, entity } = args;
+    if (!agent || !entity) throw new Error('agent and entity are required');
+    const r = await req('POST', '/screen-entity', { agent, entity });
+    if (r.error) return { ok: false, error: r.error };
+    if (r.status === 402) return { ok: false, payment_required: true, ...r.body };
+    return { ok: true, status: r.status, ...r.body };
+  }
+  if (name === 'distress_score') {
+    const { agent, ticker } = args;
+    if (!agent || !ticker) throw new Error('agent and ticker are required');
+    const r = await req('POST', '/distress-score', { agent, ticker });
     if (r.error) return { ok: false, error: r.error };
     if (r.status === 402) return { ok: false, payment_required: true, ...r.body };
     return { ok: true, status: r.status, ...r.body };
