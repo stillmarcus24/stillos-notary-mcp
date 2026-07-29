@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.stillmarcus24/stillos-notary-mcp",
   "description": "Ed25519-signed verdicts resolved against real ground truth. Free claim/verify; paid bonded dispute.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "repository": {
     "url": "https://github.com/stillmarcus24/stillos-notary-mcp",
     "source": "github"
@@ -12,12 +12,18 @@
     {
       "registryType": "npm",
       "identifier": "stillos-notary-mcp",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "transport": { "type": "stdio" },
       "runtimeHint": "npx",
       "runtimeArguments": [
         { "type": "positional", "value": "mcp", "description": "run as MCP stdio server" }
       ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://stillos-notary-mcp-edge.stillos.workers.dev/mcp"
     }
   ]
 }
