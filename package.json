@@ -13,7 +13,7 @@
   ],
   "author": "StillOS / NolaWealth",
   "license": "MIT",
-  "homepage": "https://nolawealthfinancial.com/notary",
+  "homepage": "https://stillosdigitalholdings.com/notary",
   "engines": { "node": ">=18" },
   "files": ["index.cjs", "mcp.cjs", "bin.cjs", "README.md", "LICENSE"]
 }

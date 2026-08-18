@@ -1,14 +1,14 @@
 'use strict';
 /*
  * stillos-notary-mcp — pure logic, no stdio/process side effects.
- * Every call hits the real public notary over HTTPS (nolawealthfinancial.com) --
+ * Every call hits the real public notary over HTTPS (stillosdigitalholdings.com) --
  * no local/internal-only code path, so this works identically wherever it runs.
  */
 const https = require('https');
 const http = require('http');
 const { URL } = require('url');
 
-const NOTARY = (process.env.STILLOS_NOTARY || 'https://nolawealthfinancial.com/notary').replace(/\/+$/, '');
+const NOTARY = (process.env.STILLOS_NOTARY || 'https://stillosdigitalholdings.com/notary').replace(/\/+$/, '');
 
 function req(method, path, body) {
   return new Promise((resolve) => {

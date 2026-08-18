@@ -5,7 +5,7 @@ the notary returns an Ed25519-signed, hash-chained verdict, settled against
 real external ground truth, not model output. Free tier, no account, no card.
 
 Every tool call in this package settles against the live public notary over
-HTTPS (`nolawealthfinancial.com/notary`). No local or internal-only code path
+HTTPS (`stillosdigitalholdings.com/notary`). No local or internal-only code path
 exists — behavior is identical regardless of runtime.
 
 ## Install
@@ -98,4 +98,4 @@ regardless of direction, and publishes confirmed and refuted verdicts to the
 same ledger. Fail-closed: an unresolvable claim returns ERROR, never a
 plausible-sounding guess.
 
-Live docs: https://nolawealthfinancial.com/notary/docs
+Live docs: https://stillosdigitalholdings.com/notary/docs
