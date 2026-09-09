@@ -9,13 +9,15 @@ const http = require('http');
 const { URL } = require('url');
 
 const NOTARY = (process.env.STILLOS_NOTARY || 'https://stillosdigitalholdings.com/notary').replace(/\/+$/, '');
+const { version: PKG_VERSION } = require('./package.json');
+const UA = `stillos-notary-mcp/${PKG_VERSION} (+https://www.npmjs.com/package/stillos-notary-mcp)`;
 
 function req(method, path, body) {
   return new Promise((resolve) => {
     let u; try { u = new URL(NOTARY + path); } catch { return resolve({ error: 'bad notary URL' }); }
     const lib = u.protocol === 'http:' ? http : https;
     const data = body ? JSON.stringify(body) : null;
-    const headers = { accept: 'application/json' };
+    const headers = { accept: 'application/json', 'user-agent': UA };
     if (data) { headers['content-type'] = 'application/json'; headers['content-length'] = Buffer.byteLength(data); }
     const r = lib.request(u, { method, headers }, (res) => {
       let b = ''; res.on('data', c => b += c);

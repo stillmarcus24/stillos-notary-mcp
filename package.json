@@ -1,19 +1,38 @@
 {
   "name": "stillos-notary-mcp",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "mcpName": "io.github.stillmarcus24/stillos-notary-mcp",
-  "description": "Verification infrastructure for the agentic economy: submit a claim, get an Ed25519-signed verdict resolved against real external ground truth (GitHub, on-chain, HTTP, JSON, Kalshi). Free tier, no account, fail-closed — plus OFAC SDN entity screening, validated corporate distress scoring, and a paid, bonded dispute path ($1.00 x402) to formally contest a verdict.",
+  "description": "Independent attestation infrastructure for the agentic economy. Every claim is cryptographically signed (Ed25519) and settled against verifiable external ground truth — on-chain state, GitHub, market data, or structured API responses — producing an audit-grade, independently re-verifiable receipt with no reliance on counterparty trust. Complimentary tier, no account required, engineered fail-closed. Institutional capabilities include OFAC SDN entity screening, validated corporate distress scoring, and a bonded dispute-resolution path ($1.00, x402) to formally contest a verdict.",
   "bin": {
     "stillos-notary-mcp": "bin.cjs"
   },
   "main": "index.cjs",
   "keywords": [
-    "notary", "verification", "trust", "receipt", "signed", "ed25519",
-    "mcp", "agent", "agentic-economy", "x402", "resolver", "attestation", "dispute"
+    "notary",
+    "verification",
+    "trust",
+    "receipt",
+    "signed",
+    "ed25519",
+    "mcp",
+    "agent",
+    "agentic-economy",
+    "x402",
+    "resolver",
+    "attestation",
+    "dispute"
   ],
   "author": "StillOS / NolaWealth",
   "license": "MIT",
   "homepage": "https://stillosdigitalholdings.com/notary",
-  "engines": { "node": ">=18" },
-  "files": ["index.cjs", "mcp.cjs", "bin.cjs", "README.md", "LICENSE"]
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "index.cjs",
+    "mcp.cjs",
+    "bin.cjs",
+    "README.md",
+    "LICENSE"
+  ]
 }
