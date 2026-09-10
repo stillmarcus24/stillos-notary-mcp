@@ -57,6 +57,52 @@ upheld dispute overturns the verdict and queues a slashable payout against the
 notary's on-chain correctness bond ($10 USDC, Base). Dispute window: 48 hours
 from the original receipt's timestamp.
 
+## Paying for a paid tool (1.3.0)
+
+Through 1.2.2 this package could only *report* the paywall: every paid tool returned
+`{ payment_required: true }` and the call ended there. There was no way, anywhere in the
+package, to attach a payment and retry — the CLI told you to "attach payment and retry"
+using a mechanism that did not exist. 1.3.0 implements it.
+
+Supply a credential and the 402 is crossed automatically — one 402, one payment, one
+retry, then the paid result:
+
+```js
+const { callTool } = require('stillos-notary-mcp');
+
+// 1. Preferred: your own payment-capable fetch. We never see a key.
+const r = await callTool('screen_entity', { agent: 'me', entity: 'Acme Corp' },
+                         { fetch: myX402Fetch });
+
+// 2. Or a viem account / signer object.
+await callTool('screen_entity', args, { account: myViemAccount });
+
+// 3. Or, as a documented fallback, a raw key in the environment.
+//    export STILLOS_NOTARY_WALLET_KEY=0x...
+await callTool('screen_entity', args);
+```
+
+With no credential you get an actionable requirement rather than a dead end:
+
+```json
+{
+  "ok": false, "paid": false, "code": "PAYMENT_REQUIRED",
+  "payment": { "amount_usd": 0.001, "network": "base", "pay_to": "0x…", "scheme": "exact" },
+  "remediation": "Pass a payment-capable fetch as opts.fetch, a viem account as opts.account, or set STILLOS_NOTARY_WALLET_KEY, then call again."
+}
+```
+
+**What it refuses to pay.** A 402 is untrusted input. The client will not sign for a
+network or scheme it does not expect (`base` / `exact` only), will not pay a malformed
+requirement missing `payTo` or an amount, and will not exceed a per-call ceiling
+(`$1.50` default, `STILLOS_NOTARY_MAX_USD` or `opts.maxUsd` to change). It never retries
+more than once — a second 402 is a hard stop, not a backoff loop, so a rejected payment
+can never be re-signed into a double spend. Supplying no credential never spends
+anything. No key is received, logged, persisted, or placed in an error message.
+
+Covered by `test/payment-continuation.test.cjs` (17 cases, local mocks, no real
+settlement).
+
 **Paid: $1.00 USDC (Base) via x402 — no free tier.** A call without an
 attached x402 payment returns the payment requirement (price, `payTo`, asset),
 not a verdict. This package holds no wallet and executes no payment itself;
