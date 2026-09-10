@@ -7,7 +7,12 @@
  */
 const { TOOLS, callTool } = require('./index.cjs');
 
-const SERVER = { name: 'stillos-notary-mcp', version: '1.2.0' };
+// 2026-09-10: was the literal '1.2.0' and had been since that release, so the MCP
+// server told every connecting client the wrong version of itself -- found while
+// verifying the 1.3.0 release from a clean registry install, where an installed 1.3.0
+// introduced itself as 1.2.0. Read it from the manifest so it cannot drift again.
+const { version: PKG_VERSION } = require('./package.json');
+const SERVER = { name: 'stillos-notary-mcp', version: PKG_VERSION };
 const PROTOCOL = '2024-11-05';
 
 function write(obj) { process.stdout.write(JSON.stringify(obj) + '\n'); }
