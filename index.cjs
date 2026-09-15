@@ -279,7 +279,7 @@ const TOOLS = [
   },
   {
     name: 'screen_entity',
-    description: 'OFAC SDN sanctions name screen: matches a legal name against the OFAC Specially Designated Nationals list, with a source_as_of freshness timestamp, Ed25519-signed. Paid: $0.001 USDC (Base) via x402 — no free tier. A call without an attached x402 payment returns the payment requirement, not a verdict.',
+    description: 'OFAC SDN sanctions name screen: matches a legal name against the OFAC Specially Designated Nationals list, with a source_as_of freshness timestamp, Ed25519-signed. Free up to 5/agent/day, then $0.001 USDC (Base) via x402. Once the free tier is used up, a call without an attached x402 payment returns the payment requirement, not a verdict.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -291,7 +291,7 @@ const TOOLS = [
   },
   {
     name: 'distress_score',
-    description: 'Validated corporate distress-foresight score for a single equity ticker: Altman Z-score computed from live SEC XBRL filings, backtested 71% sensitivity / 100% specificity with a ~109-day median lead time, Ed25519-signed. Paid: $0.15 USDC (Base) via x402 — no free tier. A call without an attached x402 payment returns the payment requirement, not a verdict.',
+    description: 'Balance-sheet corporate distress ranker for a single equity ticker: Altman Z-score computed from live SEC XBRL filings, held-out AUC 0.769 (178 real Chapter 11 filings vs 71 date-matched controls), Ed25519-signed. Free up to 3/agent/day, then $0.15 USDC (Base) via x402. Once the free tier is used up, a call without an attached x402 payment returns the payment requirement, not a verdict.',
     inputSchema: {
       type: 'object',
       properties: {

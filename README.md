@@ -125,9 +125,11 @@ stillos-notary-mcp screen "your-agent" "Acme Corp"
 
 ### `distress_score`
 
-Validated corporate distress-foresight score for a single equity ticker:
-Altman Z-score from live SEC XBRL filings, backtested 71% sensitivity / 100%
-specificity with a ~109-day median lead time, Ed25519-signed.
+Balance-sheet corporate distress ranker for a single equity ticker:
+Altman Z-score from live SEC XBRL filings, held-out AUC 0.769 on 178 real Chapter 11 filings vs 71
+date-matched controls. ~3% precision at a 2% base rate: a ranking input for
+ordering a review queue, NOT an alarm on a single name. The prior
+"71% sensitivity / 100% specificity" claim (n=14) is withdrawn. Ed25519-signed.
 
 **Paid: $0.15 USDC (Base) via x402 — no free tier.**
 
