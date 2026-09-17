@@ -6,8 +6,8 @@
  *   stillos-notary-mcp verify <hash>            -> verify a receipt hash
  *   stillos-notary-mcp claim <agent> <claim> <resolver-json>  -> submit a claim-verdict
  *   stillos-notary-mcp dispute <agent> <receipt-hash>         -> file a bonded dispute ($1.00 x402, no free tier)
- *   stillos-notary-mcp screen <agent> <entity>                -> OFAC SDN name screen ($0.001 x402, no free tier)
- *   stillos-notary-mcp distress <agent> <ticker>              -> distress-foresight score ($0.15 x402, no free tier)
+ *   stillos-notary-mcp screen <agent> <entity>                -> OFAC SDN name screen (free 5/day, then $0.001 x402)
+ *   stillos-notary-mcp distress <agent> <ticker>              -> distress ranker, AUC 0.769 (free 3/day, then $0.15 x402)
  */
 const { callTool } = require('./index.cjs');
 
@@ -62,8 +62,8 @@ if (args[0] === 'verify' && args[1]) {
   console.log('  stillos-notary-mcp verify <hash>                              verify a receipt');
   console.log('  stillos-notary-mcp claim <agent> <claim> <resolver-json>      submit a claim-verdict');
   console.log('  stillos-notary-mcp dispute <agent> <receipt-hash>             file a bonded dispute ($1.00 x402, no free tier)');
-  console.log('  stillos-notary-mcp screen <agent> <entity>                    OFAC SDN name screen ($0.001 x402, no free tier)');
-  console.log('  stillos-notary-mcp distress <agent> <ticker>                  distress-foresight score ($0.15 x402, no free tier)\n');
+  console.log('  stillos-notary-mcp screen <agent> <entity>                    OFAC SDN name screen (free 5/day, then $0.001 x402)');
+  console.log('  stillos-notary-mcp distress <agent> <ticker>                  distress ranker, AUC 0.769 (free 3/day, then $0.15 x402)\n');
   console.log('example resolver: {"type":"http_status","url":"https://example.com","expect_code":200}');
   process.exit(2);
 }

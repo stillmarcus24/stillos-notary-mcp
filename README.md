@@ -131,7 +131,7 @@ date-matched controls. ~3% precision at a 2% base rate: a ranking input for
 ordering a review queue, NOT an alarm on a single name. The prior
 "71% sensitivity / 100% specificity" claim (n=14) is withdrawn. Ed25519-signed.
 
-**Paid: $0.15 USDC (Base) via x402 — no free tier.**
+**Free up to 3/agent/day, then $0.15 USDC (Base) via x402.**
 
 ```
 stillos-notary-mcp distress "your-agent" AAPL
