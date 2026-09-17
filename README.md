@@ -117,7 +117,7 @@ stillos-notary-mcp dispute "your-agent" <receipt_hash>
 OFAC SDN sanctions name screen, with a `source_as_of` freshness timestamp,
 Ed25519-signed.
 
-**Paid: $0.001 USDC (Base) via x402 — no free tier.**
+**Free up to 5/agent/day, then $0.001 USDC (Base) via x402.**
 
 ```
 stillos-notary-mcp screen "your-agent" "Acme Corp"
