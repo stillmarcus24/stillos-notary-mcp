@@ -200,7 +200,19 @@ async function paidCall(path, body, opts = {}) {
           ? `payment required ($${desc.amount_usd} ${desc.asset_name || 'USDC'} on ${desc.network})`
           : 'payment required',
         payment: desc,
-        remediation: 'Pass a payment-capable fetch as opts.fetch, a viem account as opts.account, or set STILLOS_NOTARY_WALLET_KEY, then call again — this package will attach the x402 payment and retry automatically.',
+        // 2026-09-25: `remediation` used to name ONLY the pay path. The server's 402 has
+        // carried a second, free door since 2026-09-10 -- POST /notary/request-trial, no
+        // wallet and no signup -- and it arrived here inside `...r.body` as
+        // `building_on_this`, where nothing surfaced it. Same defect stillos-kya shipped
+        // for two months: a caller reads `error` and `remediation`, not the raw body, so a
+        // door that is not in those two strings does not exist. Measured there: one real
+        // adopter hit the wall 130 times and /request-trial got zero external submissions.
+        remediation: 'Pass a payment-capable fetch as opts.fetch, a viem account as opts.account, or set STILLOS_NOTARY_WALLET_KEY, then call again — this package will attach the x402 payment and retry automatically.'
+          + ((r.body && r.body.building_on_this && r.body.building_on_this.path)
+            ? ` Not ready to pay? ${r.body.building_on_this.path} with {"agent":"<same id>","contact":"<email>"} — no payment, no signup, a founder reads every one and grants extended free tiers to real integrators.`
+            : ''),
+        ...(r.body && r.body.building_on_this ? { request_trial: r.body.building_on_this } : {}),
+        contact: 'stillmarcus24@gmail.com',
         ...r.body,
       };
     }
